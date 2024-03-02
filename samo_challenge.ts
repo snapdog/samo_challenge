@@ -95,7 +95,7 @@ function solveWaterJugRiddle(X: number, Y: number, Z: number): any {
 
     // Check for edge cases where no solution exists
     if (Z % gcd(jarX.capacity, jarY.capacity) !== 0 || Z > Math.max(jarX.capacity, jarY.capacity)) {
-         steps.push(`No Solution>>>  ${jarX.name}: ${jarX.capacity}L MDC ${Z} && ${jarY.name}: ${jarY.capacity}L REMAINDER>0 ${Z}`);
+         steps.push(`No Solution>>>  MDC( ${jarX.name}: ${jarX.capacity}L && ${jarY.name}: ${jarY.capacity}L ) and REMAINDER>0 Z: ${Z}`);
          return steps;
     }
 
