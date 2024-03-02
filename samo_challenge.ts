@@ -57,25 +57,48 @@ function solveWaterJugRiddle(X: number, Y: number, Z: number): any {
   function isSolutionPossible(): string[] | boolean {
     let stepsTaken = 0;
 
+    // Check for both jars greater than disered
+    if ( jarX.capacity > Z && jarY.capacity > Z) {
+       steps.push(`No Solution>>>  ${jarX.name}: ${jarX.capacity}L > ${Z} && ${jarY.name}: ${jarY.capacity}L > ${Z}`);
+       return steps;
+    }
+
+    let oneStep = jarX.capacity + jarY.capacity;
+
+    // Check for sum of 02 jars are smaller than disered
+    if ( oneStep < Z ) {
+       steps.push(`No Solution>>>  ${jarX.name}: ${jarX.capacity}L + ${jarY.name}: ${jarY.capacity}L < ${Z}`);
+       return steps;
+    }
+
+    // Check if single jar(X) capacity equals desired amount
+    if ( jarX.capacity === Z ) {
+       stepsTaken = fillJar(jarX, stepsTaken);
+       steps.push(`Best Solution>>> #steps: ${stepsTaken}, ${jarX.name}: ${jarX.currentVolume}L, ${jarY.name}: ${jarY.currentVolume}L = Z Desired: ${Z}`);
+       return steps;
+    }
+
+    // Check if single(Y) jar capacity equals desired amount
+    if ( jarY.capacity === Z ) {
+       stepsTaken = fillJar(jarY, stepsTaken);
+       steps.push(`Best Solution>>> #steps: ${stepsTaken}, ${jarX.name}: ${jarX.currentVolume}L, ${jarY.name}: ${jarY.currentVolume}L = Z Desired: ${Z}`);
+       return steps;
+    }
+
+    // Check for sum of 02 jars is iquals to the desired amount
+    if (oneStep === Z) {
+       stepsTaken = fillJar(jarX, stepsTaken);
+       stepsTaken = fillJar(jarY, stepsTaken);
+       steps.push(`Best Solution>>> #steps: ${stepsTaken}, ${jarX.name}: ${jarX.currentVolume}L, ${jarY.name}: ${jarY.currentVolume}L = Z Desired: ${Z}`);
+       return steps;
+    }
+
     // Check for edge cases where no solution exists
     if (Z % gcd(jarX.capacity, jarY.capacity) !== 0 || Z > Math.max(jarX.capacity, jarY.capacity)) {
-      steps.push(`No Solution>>>  ${jarX.name}: ${jarX.capacity}L, GCD of ${jarX.capacity} and ${jarY.capacity} not divisible by ${Z}`);
-      return steps;
+         steps.push(`No Solution>>>  ${jarX.name}: ${jarX.capacity}L MDC ${Z} && ${jarY.name}: ${jarY.capacity}L REMAINDER>0 ${Z}`);
+         return steps;
     }
 
-    // Check if single jar capacity equals desired amount
-    if (jarX.capacity === Z || jarY.capacity === Z) {
-      stepsTaken = (jarX.capacity === Z) ? fillJar(jarX, stepsTaken) : fillJar(jarY, stepsTaken);
-      steps.push(`Best Solution>>> #steps: ${stepsTaken}, ${jarX.name}: ${jarX.currentVolume}L, ${jarY.name}: ${jarY.currentVolume}L = Z Desired: ${Z}`);
-      return steps;
-    }
-
-    // Check for cases where no direct solution is feasible
-    let directFill = jarX.capacity + jarY.capacity;
-    if (directFill < Z) {
-      steps.push(`No Solution>>>  ${jarX.name}: ${jarX.capacity}L + ${jarY.name}: ${jarY.capacity}L < ${Z}`);
-      return steps;
-    }
 
     // Create temporary jars for calculation
     let tempJarX: Jar = { ...jarX };
@@ -133,6 +156,12 @@ app.post('/water-jug-riddle', (req, res) => {
   const result = solveWaterJugRiddle(X, Y, Z);
   res.json({ steps: result });
 });
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
