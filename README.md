@@ -35,7 +35,7 @@ The script uses an iterative approach to solve the Water Jug Riddle. It checks f
 
 3. curl -X POST http://localhost:3000/water-jug-riddle -H "Content-Type: application/json" --data '{"X": 2, "Y": 6, "Z": 5}'
 
-{"steps":["No Solution>>>  Jar X: 2L MDC 5 && Jar Y: 6L REMAINDER>0 5"]}
+{"steps":["No Solution>>>  Jar X: 2L MDC && Jar Y: 6L REMAINDER>0 Z: 5"]}
 
 ### Instruction
 To run the program, compile the TypeScript script and then execute it using:
