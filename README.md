@@ -26,14 +26,17 @@ curl -X POST http://localhost:3000/water-jug-riddle -H \"Content-Type: applicati
 The script uses an iterative approach to solve the Water Jug Riddle. It checks for edge cases and direct solutions, then determines the best approach to fill or transfer water between jars to reach the desired amount. The algorithm fills, empties, or transfers water based on jar capacities and the desired amount until a solution is found.
 
 ### Test Cases for Validation
-1. Test Case: `{ X: 8, Y: 2, Z: 4 }`
-   - Expected Outcome: Steps to fill Jar X with 5L, transfer 3L to Jar Y, and reach 4L in Jar Y.
+1. curl -X POST http://localhost:3000/water-jug-riddle -H "Content-Type: application/json" --data '{"X": 2, "Y": 10, "Z": 4}'
 
-2. Test Case: `{ X: 10, Y: 3, Z: 6 }`
-   - Expected Outcome: Steps to fill Jar Y with 3L, transfer to Jar X, and reach 6L in Jar X.
+{"steps":["Filling Jar Y with 10 liters...","Transferring water from Jar Y to Jar X (2 liters)...","Emptying Jar X...","Transferring water from Jar Y to Jar X (2 liters)...","Emptying Jar X...","Transferring water from Jar Y to Jar X (2 liters)...","Best Solution>>> #steps: 6, Jar Y: 4L, Jar X: 2L = Z Desired: 4"]}
 
-3. Test Case: `{ X: 7, Y: 9, Z: 5 }`
-   - Expected Outcome: No Solution message due to capacities not matching Z.
+2. curl -X POST http://localhost:3000/water-jug-riddle -H "Content-Type: application/json" --data '{"X": 2, "Y": 100, "Z": 96}'
+
+{"steps":["Filling Jar Y with 100 liters...","Transferring water from Jar Y to Jar X (2 liters)...","Emptying Jar X...","Transferring water from Jar Y to Jar X (2 liters)...","Best Solution>>> #steps: 4, Jar Y: 96L, Jar X: 2L = Z Desired: 96"]}
+
+3. curl -X POST http://localhost:3000/water-jug-riddle -H "Content-Type: application/json" --data '{"X": 2, "Y": 6, "Z": 5}'
+
+{"steps":["No Solution>>>  Jar X: 2L MDC 5 && Jar Y: 6L REMAINDER>0 5"]}
 
 ### Instruction
 To run the program, compile the TypeScript script and then execute it using:
