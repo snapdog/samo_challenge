@@ -40,6 +40,8 @@ The script uses an iterative approach to solve the Water Jug Riddle. It checks f
 ### Instruction
 To run the program, compile the TypeScript script and then execute it using:
 ```bash
+git clone https://github.com/snapdog/samo_challenge.git
+tsc
 node dist/samo_challenge.js
 ```"
 
