@@ -1,4 +1,3 @@
-"content": "## samo_challenge
 
 ### Description
 This TypeScript script solves the Water Jug Riddle problem using two jars with given capacities to measure a desired amount of water. The script defines functions to fill, empty, and transfer water between jars, checks for a solution based on the provided capacities and desired amount, and calculates the greatest common divisor to determine solvability.
